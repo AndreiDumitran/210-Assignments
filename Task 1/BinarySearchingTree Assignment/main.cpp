@@ -99,8 +99,14 @@ void ReadParagraph() {
 int main() {
 	node* root{ NULL };
 
-	root = Insert(root, "mala"); root = Insert(root, "qala"); root = Insert(root, "zala");
-	root = Insert(root, "ala"); root = Insert(root, "bala"); root = Insert(root, "cala");
+	root = Insert(root, "rush"); root = Insert(root, "veil"); root = Insert(root, "disarm");
+	root = Insert(root, "hurt"); root = Insert(root, "love"); root = Insert(root, "deeply");
+
+	root = Insert(root, "even"); root = Insert(root, "actor"); root = Insert(root, "need");
+	root = Insert(root, "unnatural"); root = Insert(root, "suspend"); root = Insert(root, "bat");
+
+	root = Insert(root, "no"); root = Insert(root, "drink"); root = Insert(root, "sugar");
+	root = Insert(root, "stuff"); root = Insert(root, "bikes"); root = Insert(root, "difficult");
 
 	//printing the nodes in pre order. 
 	cout << "Preorder: " <<'\n';

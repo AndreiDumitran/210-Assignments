@@ -46,13 +46,12 @@ bool HasPath(struct node *root, vector <string> &path, string toThePath) {
 		return false;
 
 	path.push_back(root->data);
-		if (root->data == toThePath)
-			return true;
+	if (root->data == toThePath)
+		return true;
 
 	if (HasPath(root->left, path, toThePath) || HasPath(root->right, path, toThePath)) {
 		return true;
 	}
-	path.pop_back();
 	return false;
 }
 
@@ -66,7 +65,10 @@ void PrintPath(node *root, string word) {
 		cout << path[path.size() - 1];
 	}
 	else {
-		cout << "has no path:";
+		for (int i = 0; i < path.size() - 1; i++) {
+			cout << path[i] << "->";
+		}
+		cout << path[path.size() - 1];
 	}
 }
 
@@ -106,7 +108,7 @@ int main() {
 	root = Insert(root, "unnatural"); root = Insert(root, "suspend"); root = Insert(root, "bat");
 
 	root = Insert(root, "no"); root = Insert(root, "drink"); root = Insert(root, "sugar");
-	root = Insert(root, "stuff"); root = Insert(root, "bikes"); root = Insert(root, "difficult");
+	root = Insert(root, "stuff"); root = Insert(root, "depend"); root = Insert(root, "difficult");
 
 	//printing the nodes in pre order. 
 	cout << "Preorder: " <<'\n';
@@ -122,14 +124,13 @@ int main() {
 		{
 			PrintPath(root, word);
 			cout << '\t';
-			cout << "Yes" << '\n' << '\n';
+			cout << "Yes" << '\n';
 		}
 		else
 		{
-			cout << word << " ";
 			PrintPath(root, word);
 			cout << '\t' << '\t';
-			cout << "No" << '\n' << '\n';
+			cout << "No" << '\n';
 		}
 	}
 

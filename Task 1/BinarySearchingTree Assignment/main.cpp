@@ -36,7 +36,7 @@ void Preorder(struct node *root) {
 	if (root == NULL)
 		return;
 
-	cout << root->data << '\n';
+	fout << root->data << " ";
 	Preorder(root->left);
 	Preorder(root->right);
 }
@@ -48,11 +48,14 @@ bool HasPath(struct node *root, vector <string> &path, string toThePath) {
 	path.push_back(root->data);
 	if (root->data == toThePath)
 		return true;
-
-	if (HasPath(root->left, path, toThePath) || HasPath(root->right, path, toThePath)) {
+	else if (HasPath(root->left, path, toThePath)){
 		return true;
 	}
-	return false;
+	else if (HasPath(root->right, path, toThePath)) {
+		return true;
+	}
+	else
+		return false;
 }
 
 void PrintPath(node *root, string word) {
@@ -60,15 +63,25 @@ void PrintPath(node *root, string word) {
 
 	if (HasPath(root, path, word)) {
 		for (int i = 0; i < path.size() - 1; i++) {
-			cout << path[i] << "->";
+			fout << path[i] << "->";
 		}
-		cout << path[path.size() - 1];
+		fout << path[path.size() - 1];
 	}
 	else {
-		for (int i = 0; i < path.size() - 1; i++) {
-			cout << path[i] << "->";
+		if (root->data <= word) {
+			for (int i = 0; i < path.size() - 1; i++) {
+				if (path[i] <= word)
+					fout << path[i] << "->";
+			}
+			fout << path[path.size() - 1];
 		}
-		cout << path[path.size() - 1];
+		else if (root->data >= word) {
+			for (int i = 0; i < path.size() - 1; i++) {
+				if (path[i] >= word)
+					fout << path[i] << "->";
+			}
+			fout << path[path.size() - 1];
+		}
 	}
 }
 
@@ -111,26 +124,26 @@ int main() {
 	root = Insert(root, "stuff"); root = Insert(root, "depend"); root = Insert(root, "difficult");
 
 	//printing the nodes in pre order. 
-	cout << "Preorder: " <<'\n';
+	fout << "Preorder: " <<'\n';
 	Preorder(root);
 
-	cout << '\n';
+	fout << '\n';
 
 	ReadParagraph();
 
-	cout << "The frequency of words: " << '\n' << '\n';
+	fout << "The frequency of words: " << '\n';
 	for (auto word : paragraph) {
 		if (Search(root, word))
 		{
 			PrintPath(root, word);
-			cout << '\t';
-			cout << "Yes" << '\n';
+			fout << '\t';
+			fout << "Yes" << '\n';
 		}
 		else
 		{
 			PrintPath(root, word);
-			cout << '\t' << '\t';
-			cout << "No" << '\n';
+			fout << '\t';
+			fout << "No" << '\n';
 		}
 	}
 

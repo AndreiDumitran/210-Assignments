@@ -1,5 +1,3 @@
 ﻿  main.cpp
-d:\assignments\210 assignment\task 1\binarysearchingtree assignment\main.cpp(65): warning C4018: '<': signed/unsigned mismatch
-d:\assignments\210 assignment\task 1\binarysearchingtree assignment\main.cpp(72): warning C4018: '<': signed/unsigned mismatch
-d:\assignments\210 assignment\task 1\binarysearchingtree assignment\main.cpp(79): warning C4018: '<': signed/unsigned mismatch
+d:\assignments\210 assignment\task 1\binarysearchingtree assignment\main.cpp(82): warning C4018: '<': signed/unsigned mismatch
   BinarySearchingTree Assignment.vcxproj -> D:\Assignments\210 assignment\Task 1\Debug\BinarySearchingTree Assignment.exe

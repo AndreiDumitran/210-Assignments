@@ -48,39 +48,47 @@ bool HasPath(struct node *root, vector <string> &path, string toThePath) {
 	path.push_back(root->data);
 	if (root->data == toThePath)
 		return true;
-	else if (HasPath(root->left, path, toThePath)){
+	if (HasPath(root->left, path, toThePath)){
+
 		return true;
 	}
-	else if (HasPath(root->right, path, toThePath)) {
+	if (HasPath(root->right, path, toThePath)) {
 		return true;
 	}
-	else
+	path.pop_back();
 		return false;
+}
+
+void PrintLeft(struct node *root) {
+	if (root == NULL)
+		return;
+
+	fout << root->data << " ";
+	PrintLeft(root->left);
+}
+
+void PrintRight(struct node *root) {
+	if (root == NULL)
+		return;
+
+	fout << root->data << " ";
+	PrintRight(root->right);
 }
 
 void PrintPath(node *root, string word) {
 	vector<string> path;
 
 	if (HasPath(root, path, word)) {
-		for (int i = 0; i < path.size() - 1; i++) {
-			fout << path[i] << "->";
+		for (int i = 0; i < path.size(); i++) {
+			fout << path[i] << " ";
 		}
-		fout << path[path.size() - 1];
 	}
 	else {
-		if (root->data <= word) {
-			for (int i = 0; i < path.size() - 1; i++) {
-				if (path[i] <= word)
-					fout << path[i] << "->";
-			}
-			fout << path[path.size() - 1];
+		if (root->data > word) {
+			PrintLeft(root);
 		}
-		else if (root->data >= word) {
-			for (int i = 0; i < path.size() - 1; i++) {
-				if (path[i] >= word)
-					fout << path[i] << "->";
-			}
-			fout << path[path.size() - 1];
+		else if (root->data < word) {
+			PrintRight(root);
 		}
 	}
 }
@@ -114,7 +122,7 @@ void ReadParagraph() {
 int main() {
 	node* root{ NULL };
 
-	root = Insert(root, "rush"); root = Insert(root, "veil"); root = Insert(root, "disarm");
+	root = Insert(root, "rush"); root = Insert(root, "just"); root = Insert(root, "disarm");
 	root = Insert(root, "hurt"); root = Insert(root, "love"); root = Insert(root, "deeply");
 
 	root = Insert(root, "even"); root = Insert(root, "actor"); root = Insert(root, "need");
@@ -123,7 +131,7 @@ int main() {
 	root = Insert(root, "no"); root = Insert(root, "drink"); root = Insert(root, "sugar");
 	root = Insert(root, "stuff"); root = Insert(root, "depend"); root = Insert(root, "difficult");
 
-	//printing the nodes in pre order. 
+
 	fout << "Preorder: " <<'\n';
 	Preorder(root);
 
@@ -146,7 +154,6 @@ int main() {
 			fout << "No" << '\n';
 		}
 	}
-
 
 	cout << '\n';
 	system("pause");

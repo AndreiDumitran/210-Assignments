@@ -41,58 +41,6 @@ void Preorder(struct node *root) {
 	Preorder(root->right);
 }
 
-bool HasPath(struct node *root, vector <string> &path, string toThePath) {
-	if (root == NULL)
-		return false;
-
-	path.push_back(root->data);
-	if (root->data == toThePath)
-		return true;
-	if (HasPath(root->left, path, toThePath)){
-
-		return true;
-	}
-	if (HasPath(root->right, path, toThePath)) {
-		return true;
-	}
-	path.pop_back();
-		return false;
-}
-
-void PrintLeft(struct node *root) {
-	if (root == NULL)
-		return;
-
-	fout << root->data << " ";
-	PrintLeft(root->left);
-}
-
-void PrintRight(struct node *root) {
-	if (root == NULL)
-		return;
-
-	fout << root->data << " ";
-	PrintRight(root->right);
-}
-
-void PrintPath(node *root, string word) {
-	vector<string> path;
-
-	if (HasPath(root, path, word)) {
-		for (int i = 0; i < path.size(); i++) {
-			fout << path[i] << " ";
-		}
-	}
-	else {
-		if (root->data > word) {
-			PrintLeft(root);
-		}
-		else if (root->data < word) {
-			PrintRight(root);
-		}
-	}
-}
-
 //function to read the paragraph from file
 void ReadParagraph() {
 	string words{};
@@ -105,31 +53,44 @@ void ReadParagraph() {
 }
 
  bool Search(node *root, string data) {
-	if (root == NULL)
+	fout << root->data << " ";
+	if (root->data == data)
+		return true;
+	else if (root == NULL)
 		return false;
 
-	else if (root->data == data) {
-		return true;
+	if (root->data > data){
+		if (root->left != NULL)
+			return Search(root->left, data);
+		else
+			return false;
 	}
-		
-	else if (data <= root->data)
-		return Search(root->left, data);
-	else
-		return Search(root->right, data);
+	else if (root->data < data){
+		if (root->right != NULL)
+			return Search(root->right, data);
+		else
+			return false;
+	}
 }
 
 
 int main() {
 	node* root{ NULL };
 
-	root = Insert(root, "rush"); root = Insert(root, "just"); root = Insert(root, "disarm");
-	root = Insert(root, "hurt"); root = Insert(root, "love"); root = Insert(root, "deeply");
+	vector<string> insertionVector{ "rush","just","disarm","hurt","love","even","actor","need","unnatural","suspend","bat","no","drink","sugar","stuff","depend","difficult","arranging" };
 
-	root = Insert(root, "even"); root = Insert(root, "actor"); root = Insert(root, "need");
-	root = Insert(root, "unnatural"); root = Insert(root, "suspend"); root = Insert(root, "bat");
+	for (auto insert : insertionVector) {
+		root = Insert(root, insert);
+	}
 
-	root = Insert(root, "no"); root = Insert(root, "drink"); root = Insert(root, "sugar");
-	root = Insert(root, "stuff"); root = Insert(root, "depend"); root = Insert(root, "difficult");
+	//root = Insert(root, "rush"); root = Insert(root, "just"); root = Insert(root, "disarm");
+	//root = Insert(root, "hurt"); root = Insert(root, "love"); root = Insert(root, "deeply");
+
+	//root = Insert(root, "even"); root = Insert(root, "actor"); root = Insert(root, "need");
+	//root = Insert(root, "unnatural"); root = Insert(root, "suspend"); root = Insert(root, "bat");
+
+	//root = Insert(root, "no"); root = Insert(root, "drink"); 
+	//root = Insert(root, "stuff"); root = Insert(root, "depend"); root = Insert(root, "difficult");
 
 
 	fout << "Preorder: " <<'\n';
@@ -143,13 +104,11 @@ int main() {
 	for (auto word : paragraph) {
 		if (Search(root, word))
 		{
-			PrintPath(root, word);
 			fout << '\t';
 			fout << "Yes" << '\n';
 		}
 		else
 		{
-			PrintPath(root, word);
 			fout << '\t';
 			fout << "No" << '\n';
 		}

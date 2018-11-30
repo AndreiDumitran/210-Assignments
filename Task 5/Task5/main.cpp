@@ -43,7 +43,7 @@ void Read() {
 
 void DFS(int start) {
 	visited[start] = 1; // Marking the node as visited.
-	cout << start << " ";
+	fout << start << " ";
 	for (int i = 0; i < nodes; i++) {
 		/*If we have edge between the node and the node "i"
 		and node "i" has not been visited we recall the function.*/
@@ -56,7 +56,7 @@ void BFS(int start) {
 	int node, queueStart = 1, queueFinish = 1;
 	visited[start] = 1; // marking the node as visited.
 	q.push_back(start); //introducing the node in to the queue
-	cout << start << " ";
+	fout << start << " ";
 	while (queueStart <= queueFinish) {
 		node = q[queueStart];
 		for (int i = 0; i < nodes; i++) {
@@ -65,7 +65,7 @@ void BFS(int start) {
 			if (adjMatrix[node][i] == 1 && visited[i] == 0) {
 				queueFinish++;
 				q.push_back(i);
-				cout << i << " ";
+				fout << i << " ";
 				visited[i] = 1; // Mark the node as visited.
 			}
 		}
@@ -86,13 +86,13 @@ int main() {
 
 	int startNode;
 	fin >> startNode;
-	cout << "DFS" << '\n';
+	fout << "DFS" << '\n';
 	DFS(startNode);
 
-	cout << '\n';
+	fout << '\n';
 
 	InitialisationVisited();
-	cout << "BFS" << '\n';
+	fout << "BFS" << '\n';
 	BFS(startNode);
 	cout << '\n';
 	system("pause");

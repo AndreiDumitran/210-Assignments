@@ -1,7 +1,7 @@
 /*Code modified from 
-	title: BST Deletition.
+	title: BST Deletion.
 	Author: mycodeschool
-	Aviability: https://gist.github.com/mycodeschool
+	Availability: https://gist.github.com/mycodeschool
 */
 
 #include<iostream>

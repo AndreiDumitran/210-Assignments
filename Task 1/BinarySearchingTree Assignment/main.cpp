@@ -1,3 +1,9 @@
+/*Code modified from
+	title: BST Deletition.
+	Author: mycodeschool
+	Aviability: https://gist.github.com/mycodeschool
+*/
+
 #include<iostream>
 #include<string>
 #include<fstream>
@@ -52,8 +58,11 @@ void ReadParagraph() {
 	fin.close();
 }
 
+// Function for Binary Search Tree
  bool Search(node *root, string data) {
+	 // output the path
 	fout << root->data << " ";
+
 	if (root->data == data)
 		return true;
 	else if (root == NULL)
@@ -77,21 +86,11 @@ void ReadParagraph() {
 int main() {
 	node* root{ NULL };
 
-	vector<string> insertionVector{ "rush","just","disarm","hurt","love","even","actor","need","unnatural","suspend","bat","no","drink","sugar","stuff","depend","difficult","arranging" };
+	vector<string> insertionVector{ "rush","just","disarm","hurt","love","even","actor","need","unnatural","suspend","bat","no","drink","sugar","stuff","depend","difficult", "yes", "say", "fox", "dog", "quick"};
 
 	for (auto insert : insertionVector) {
 		root = Insert(root, insert);
 	}
-
-	//root = Insert(root, "rush"); root = Insert(root, "just"); root = Insert(root, "disarm");
-	//root = Insert(root, "hurt"); root = Insert(root, "love"); root = Insert(root, "deeply");
-
-	//root = Insert(root, "even"); root = Insert(root, "actor"); root = Insert(root, "need");
-	//root = Insert(root, "unnatural"); root = Insert(root, "suspend"); root = Insert(root, "bat");
-
-	//root = Insert(root, "no"); root = Insert(root, "drink"); 
-	//root = Insert(root, "stuff"); root = Insert(root, "depend"); root = Insert(root, "difficult");
-
 
 	fout << "Preorder: " <<'\n';
 	Preorder(root);

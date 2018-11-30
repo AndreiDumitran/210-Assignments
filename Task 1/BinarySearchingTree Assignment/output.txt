@@ -1,5 +1,5 @@
 Preorder: 
-rush just disarm actor bat arranging depend difficult hurt even drink love need no unnatural suspend sugar stuff 
+rush just disarm actor bat depend difficult hurt even drink dog fox love need no quick unnatural suspend sugar stuff say yes 
 The frequency of words: 
 rush 	Yes
 rush just 	Yes
@@ -18,4 +18,5 @@ rush unnatural suspend sugar 	Yes
 rush unnatural suspend sugar stuff 	Yes
 rush just disarm actor bat depend 	Yes
 rush just disarm actor bat depend difficult 	Yes
-rush just disarm actor bat arranging 	Yes
+rush just disarm actor bat 	No
+rush unnatural yes 	Yes

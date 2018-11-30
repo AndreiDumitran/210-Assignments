@@ -1,67 +1,102 @@
 #include<iostream>
-#include<vector>
 #include<fstream>
+#include<vector>
 
 using namespace std;
-
-int adjMatrix[10][10]{}, vertex, vertexStart, vertexEnd, queue[10]{}, visited[10]{};
 
 ifstream fin("input.txt");
 ofstream fout("output.txt");
 
-void IsPath(int start, int finish) {
-	int first, last, currentElement;
-	if (start > finish) {
-		int temp = start;
-		start = finish;
-		finish = temp;
-	}
-	visited[start] = 1;
-	queue[1] = start;
-	first = 1;
-	last = 1;
+vector<vector<int>> adjMatrix{ 0 };
+vector<int> visited{ 0 };
+vector<int> q{ 0 };
+int nodes;
 
-	while (first <= last) {
-		currentElement = queue[first];
-		for (int j = 1; j <= vertex + 1; j++) {
-			if (adjMatrix[currentElement][j] == 1 && visited[j] == 0) {
-				last += 1;
-				queue[last] = j;
-				visited[j] = 1;
-			}
+void InitialisationMatrix() {
+	for (int i = 1; i <= nodes; i++) {
+		vector <int> temp;
+		for (int j = 1; j <= nodes; j++) {
+			temp.push_back(0);
 		}
-		first++;
+		adjMatrix.push_back(temp);
 	}
-	for (int i = 1; i < last + 1; i++) {
-		i = start;
-		if(i != finish)
-			cout << queue[i]<< " ";
-		else break;
+	for (int i = 0; i < nodes; i++) {
+		visited.push_back(0);
 	}
-	
 }
 
-int main() {
-	fin >> vertex;
+void InitialisationVisited() {
+	for (int i = 0; i < nodes; i++) {
+		visited[i] = 0;
+	}
+}
 
-	for (int i = 1; i < vertex + 1; i++) {
-		for (int j = i + 1; j < vertex + 1; j++) {
-			//cout << "Is connection between vertex " << i << " and " << j << " ? ";
+void Read() {
+	for (int i = 0; i < nodes; i++) {
+		for (int j = i + 1; j < nodes; j++) {
+			//cout << "Is an edge between " << i << " and " << j << " ? ";
 			fin >> adjMatrix[i][j];
 			adjMatrix[j][i] = adjMatrix[i][j];
 		}
 	}
+}
 
-	fin >> vertexStart >> vertexEnd;
-
-	IsPath(vertexStart, vertexEnd);
-
-	for (int i = 1; i < vertex + 1; i++) {
-		for (int j = 1; j < vertex + 1; j++) {
-			fout<< adjMatrix[i][j] << " ";
+void BFS(int start) {
+	int node, queueStart = 1, queueFinish = 1;
+	visited[start] = 1; // marking the node as visited.
+	q.push_back(start); //introducing the node in to the queue
+	while (queueStart <= queueFinish) {
+		node = q[queueStart];
+		for (int i = 0; i < nodes; i++) {
+			/* If we have edge between the node and the node "i" we increase the queue
+			and we introduce the node to the queue.*/
+			if (adjMatrix[node][i] == 1 && visited[i] == 0) {
+				queueFinish++;
+				q.push_back(i);
+				visited[i] = 1; // Mark the node as visited.
+			}
 		}
-		fout << '\n';
+		queueStart++;
 	}
+}
+
+void isPath(int v, int w) {
+	bool found = false;
+	BFS(v);
+	for (auto iterator : q) {
+		if (iterator == w)
+			found = true;
+	}
+	if (found == true) {
+		for (int i = 1; i < q.size(); i++) {
+			if (q[i] != w)
+				fout << q[i] << " ";
+			else {
+				fout << q[i];
+				break;
+			}
+		}
+	}
+	else
+		fout << "No path";
+}
+
+int main() {
+	//cout << "Enter number of nodes: ";
+	fin >> nodes;
+
+	// Iunction to initialise the matrix with 0.
+	InitialisationMatrix();
+
+	// Initialising the visited vector with 0.
+	InitialisationVisited();
+	Read();
+
+	int startNode, endNode;
+	fin >> startNode >> endNode;
+
+	isPath(startNode, endNode);
+
 
 	cout << '\n';
 	system("pause");
